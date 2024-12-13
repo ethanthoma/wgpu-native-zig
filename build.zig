@@ -3,48 +3,35 @@ const std = @import("std");
 const TargetQuery = std.Target.Query;
 
 // All the targets for which a pre-compiled build of wgpu-native is currently (as of July 9, 2024) available
-const target_whitelist = [_] TargetQuery {
-    TargetQuery {
-        .cpu_arch = .aarch64,
-        .os_tag = .linux
-    },
-    TargetQuery {
+const target_whitelist = [_]TargetQuery{
+    TargetQuery{ .cpu_arch = .aarch64, .os_tag = .linux },
+    TargetQuery{
         .cpu_arch = .aarch64,
         .os_tag = .macos,
     },
-    TargetQuery {
+    TargetQuery{
         .cpu_arch = .x86_64,
         .os_tag = .linux,
     },
-    TargetQuery {
+    TargetQuery{
         .cpu_arch = .x86_64,
         .os_tag = .macos,
     },
-    TargetQuery {
+    TargetQuery{
         .cpu_arch = .x86,
         .os_tag = .windows,
     },
-    TargetQuery {
+    TargetQuery{
         .cpu_arch = .x86_64,
         .os_tag = .windows,
     },
 };
 
-// Although this function looks imperative, note that its job is to
-// declaratively construct a build graph that will be executed by an external
-// runner.
-pub fn build(b: *std.Build) void {
-    // Standard target options allows the person running `zig build` to choose
-    // what target to build for. Here we do not override the defaults, which
-    // means any target is allowed, and the default is native. Other options
-    // for restricting supported target set are available.
+pub fn build(b: *std.Build) !void {
     const target = b.standardTargetOptions(.{
         .whitelist = &target_whitelist,
     });
 
-    // Standard optimization options allow the person running `zig build` to select
-    // between Debug, ReleaseSafe, ReleaseFast, and ReleaseSmall. Here we do not
-    // set a preferred release mode, allowing the user to decide how to optimize.
     const optimize = b.standardOptimizeOption(.{});
 
     const target_res = target.result;
@@ -52,11 +39,12 @@ pub fn build(b: *std.Build) void {
     const arch_str = @tagName(target_res.cpu.arch);
     const mode_str = switch (optimize) {
         .Debug => "debug",
-        else => "release"
+        else => "release",
     };
-    const target_name_slices = [_] [:0]const u8 {"wgpu_", os_str, "_", arch_str, "_", mode_str};
-    const maybe_target_name = std.mem.concatWithSentinel(b.allocator, u8, &target_name_slices, 0);
-    const target_name = maybe_target_name catch "wgpu_linux_x86_64_debug";
+    const target_name_slices = [_][:0]const u8{ "wgpu_", os_str, "_", arch_str, "_", mode_str };
+    const target_name = std.mem.concatWithSentinel(b.allocator, u8, &target_name_slices, 0) catch "wgpu_linux_x86_64_debug";
+
+    const wgpu_dep = b.dependency(target_name, .{});
 
     const mod = b.addModule("wgpu", .{
         .root_source_file = b.path("src/root.zig"),
@@ -64,8 +52,6 @@ pub fn build(b: *std.Build) void {
         .optimize = optimize,
         .link_libcpp = true,
     });
-
-    const wgpu_dep = b.lazyDependency(target_name, .{}).?;
 
     const lib_name = switch (target_res.os.tag) {
         // There's also some sorf of .pdb file available, which I think is a database of debugging symbols.
@@ -134,12 +120,12 @@ pub fn build(b: *std.Build) void {
     test_step.dependOn(&run_compute_test.step);
     test_step.dependOn(&run_compute_test_c.step);
 
-    const test_files = [_] [:0]const u8 {
+    const test_files = [_][:0]const u8{
         "src/instance.zig",
         "src/adapter.zig",
         "src/pipeline.zig",
     };
-    comptime var test_names: [test_files.len] [:0]const u8 = test_files;
+    comptime var test_names: [test_files.len][:0]const u8 = test_files;
     comptime for (test_files, 0..) |test_file, idx| {
         const test_name = test_file[4..(test_file.len - 4)] ++ "-test";
         test_names[idx] = test_name;
