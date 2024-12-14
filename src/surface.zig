@@ -23,7 +23,7 @@ pub const SurfaceDescriptor = extern struct {
 };
 
 pub const SurfaceDescriptorFromAndroidNativeWindow = extern struct {
-    chain: ChainedStruct = ChainedStruct {
+    chain: ChainedStruct = ChainedStruct{
         .s_type = SType.surface_descriptor_from_android_native_window,
     },
     window: *anyopaque,
@@ -34,7 +34,7 @@ pub const MergedSurfaceDescriptorFromAndroidWindow = struct {
 };
 pub inline fn surfaceDescriptorFromAndroidNativeWindow(descriptor: MergedSurfaceDescriptorFromAndroidWindow) SurfaceDescriptor {
     return SurfaceDescriptor{
-        .next_in_chain = @ptrCast(&SurfaceDescriptorFromAndroidNativeWindow {
+        .next_in_chain = @ptrCast(&SurfaceDescriptorFromAndroidNativeWindow{
             .window = descriptor.window,
         }),
         .label = descriptor.label,
@@ -42,7 +42,7 @@ pub inline fn surfaceDescriptorFromAndroidNativeWindow(descriptor: MergedSurface
 }
 
 pub const SurfaceDescriptorFromCanvasHTMLSelector = extern struct {
-    chain: ChainedStruct = ChainedStruct {
+    chain: ChainedStruct = ChainedStruct{
         .s_type = SType.surface_descriptor_from_canvas_html_selector,
     },
     selector: [*:0]const u8,
@@ -53,7 +53,7 @@ pub const MergedSurfaceDescriptorFromCanvasHTMLSelector = struct {
 };
 pub inline fn surfaceDescriptorFromCanvasHTMLSelector(descriptor: MergedSurfaceDescriptorFromCanvasHTMLSelector) SurfaceDescriptor {
     return SurfaceDescriptor{
-        .next_in_chain = @ptrCast(&SurfaceDescriptorFromCanvasHTMLSelector {
+        .next_in_chain = @ptrCast(&SurfaceDescriptorFromCanvasHTMLSelector{
             .selector = descriptor.selector,
         }),
         .label = descriptor.label,
@@ -61,7 +61,7 @@ pub inline fn surfaceDescriptorFromCanvasHTMLSelector(descriptor: MergedSurfaceD
 }
 
 pub const SurfaceDescriptorFromMetalLayer = extern struct {
-    chain: ChainedStruct = ChainedStruct {
+    chain: ChainedStruct = ChainedStruct{
         .s_type = SType.surface_descriptor_from_metal_layer,
     },
     layer: *anyopaque,
@@ -72,7 +72,7 @@ pub const MergedSurfaceDescriptorFromMetalLayer = struct {
 };
 pub inline fn surfaceDescriptorFromMetalLayer(descriptor: MergedSurfaceDescriptorFromMetalLayer) SurfaceDescriptor {
     return SurfaceDescriptor{
-        .next_in_chain = @ptrCast(&SurfaceDescriptorFromMetalLayer {
+        .next_in_chain = @ptrCast(&SurfaceDescriptorFromMetalLayer{
             .layer = descriptor.layer,
         }),
         .label = descriptor.label,
@@ -80,7 +80,7 @@ pub inline fn surfaceDescriptorFromMetalLayer(descriptor: MergedSurfaceDescripto
 }
 
 pub const SurfaceDescriptorFromWaylandSurface = extern struct {
-    chain: ChainedStruct = ChainedStruct {
+    chain: ChainedStruct = ChainedStruct{
         .s_type = SType.surface_descriptor_from_wayland_surface,
     },
     display: *anyopaque,
@@ -93,7 +93,7 @@ pub const MergedSurfaceDescriptorFromWaylandSurface = struct {
 };
 pub inline fn surfaceDescriptorFromWaylandSurface(descriptor: MergedSurfaceDescriptorFromWaylandSurface) SurfaceDescriptor {
     return SurfaceDescriptor{
-        .next_in_chain = @ptrCast(&SurfaceDescriptorFromWaylandSurface {
+        .next_in_chain = @ptrCast(&SurfaceDescriptorFromWaylandSurface{
             .display = descriptor.display,
             .surface = descriptor.surface,
         }),
@@ -102,7 +102,7 @@ pub inline fn surfaceDescriptorFromWaylandSurface(descriptor: MergedSurfaceDescr
 }
 
 pub const SurfaceDescriptorFromWindowsHWND = extern struct {
-    chain: ChainedStruct = ChainedStruct {
+    chain: ChainedStruct = ChainedStruct{
         .s_type = SType.surface_descriptor_from_windows_hwnd,
     },
     hinstance: *anyopaque,
@@ -115,7 +115,7 @@ pub const MergedSurfaceDescriptorFromWindowsHWND = struct {
 };
 pub inline fn surfaceDescriptorFromWindowsHWND(descriptor: MergedSurfaceDescriptorFromWindowsHWND) SurfaceDescriptor {
     return SurfaceDescriptor{
-        .next_in_chain = @ptrCast(&SurfaceDescriptorFromWindowsHWND {
+        .next_in_chain = @ptrCast(&SurfaceDescriptorFromWindowsHWND{
             .hinstance = descriptor.hinstance,
             .hwnd = descriptor.hwnd,
         }),
@@ -124,7 +124,7 @@ pub inline fn surfaceDescriptorFromWindowsHWND(descriptor: MergedSurfaceDescript
 }
 
 pub const SurfaceDescriptorFromXcbWindow = extern struct {
-    chain: ChainedStruct = ChainedStruct {
+    chain: ChainedStruct = ChainedStruct{
         .s_type = SType.surface_descriptor_from_xcb_window,
     },
     connection: *anyopaque,
@@ -137,7 +137,7 @@ pub const MergedSurfaceDescriptorFromXcbWindow = struct {
 };
 pub inline fn surfaceDescriptorFromXcbWindow(descriptor: MergedSurfaceDescriptorFromXcbWindow) SurfaceDescriptor {
     return SurfaceDescriptor{
-        .next_in_chain = @ptrCast(&SurfaceDescriptorFromXcbWindow {
+        .next_in_chain = @ptrCast(&SurfaceDescriptorFromXcbWindow{
             .connection = descriptor.connection,
             .window = descriptor.window,
         }),
@@ -146,7 +146,7 @@ pub inline fn surfaceDescriptorFromXcbWindow(descriptor: MergedSurfaceDescriptor
 }
 
 pub const SurfaceDescriptorFromXlibWindow = extern struct {
-    chain: ChainedStruct = ChainedStruct {
+    chain: ChainedStruct = ChainedStruct{
         .s_type = SType.surface_descriptor_from_xlib_window,
     },
     display: *anyopaque,
@@ -159,7 +159,7 @@ pub const MergedSurfaceDescriptorFromXlibWindow = struct {
 };
 pub inline fn surfaceDescriptorFromXlibWindow(descriptor: MergedSurfaceDescriptorFromXlibWindow) SurfaceDescriptor {
     return SurfaceDescriptor{
-        .next_in_chain = @ptrCast(&SurfaceDescriptorFromXlibWindow {
+        .next_in_chain = @ptrCast(&SurfaceDescriptorFromXlibWindow{
             .display = descriptor.display,
             .window = descriptor.window,
         }),
@@ -169,21 +169,21 @@ pub inline fn surfaceDescriptorFromXlibWindow(descriptor: MergedSurfaceDescripto
 
 // CompositeAlphaMode and PresentMode only seem to be used by surface-related things, so I'm putting them here.
 pub const CompositeAlphaMode = enum(u32) {
-    auto            = 0x00000000,
-    @"opaque"       = 0x00000001,
-    premultiplied   = 0x00000002,
+    auto = 0x00000000,
+    @"opaque" = 0x00000001,
+    premultiplied = 0x00000002,
     unpremultiplied = 0x00000003,
-    inherit         = 0x00000004,
+    inherit = 0x00000004,
 };
 pub const PresentMode = enum(u32) {
-    fifo         = 0x00000000,
+    fifo = 0x00000000,
     fifo_relaxed = 0x00000001,
-    immediate    = 0x00000002,
-    mailbox      = 0x00000003,
+    immediate = 0x00000002,
+    mailbox = 0x00000003,
 };
 
 pub const SurfaceConfigurationExtras = extern struct {
-    chain: ChainedStruct = ChainedStruct {
+    chain: ChainedStruct = ChainedStruct{
         .s_type = SType.surface_configuration_extras,
     },
 
@@ -209,7 +209,7 @@ pub const SurfaceConfiguration = extern struct {
 
     pub inline fn withDesiredMaxFrameLatency(self: SurfaceConfiguration, desired_max_frame_latency: u32) SurfaceConfiguration {
         var sc = self;
-        sc.next_in_chain = @ptrCast(&SurfaceConfigurationExtras {
+        sc.next_in_chain = @ptrCast(&SurfaceConfigurationExtras{
             .desired_maximum_frame_latency = desired_max_frame_latency,
         });
         return sc;
@@ -217,17 +217,18 @@ pub const SurfaceConfiguration = extern struct {
 };
 
 pub const SurfaceCapabilitiesProcs = struct {
-    pub const FreeMembers = *const fn(*SurfaceCapabilities) callconv(.C) void;
+    pub const FreeMembers = *const fn (*SurfaceCapabilities) callconv(.C) void;
 };
 extern fn wgpuSurfaceCapabilitiesFreeMembers(capabilities: *SurfaceCapabilities) void;
 pub const SurfaceCapabilities = extern struct {
     next_in_chain: ?*ChainedStructOut = null,
-    format_count: usize,
-    formats: [*]TextureFormat,
-    present_mode_count: usize,
-    present_modes: [*]PresentMode,
-    alpha_mode_count: usize,
-    alpha_modes: [*]CompositeAlphaMode,
+    usages: TextureUsageFlags = TextureUsage.none,
+    format_count: usize = 0,
+    formats: [*]TextureFormat = &[_]TextureFormat{},
+    present_mode_count: usize = 0,
+    present_modes: [*]PresentMode = &[_]PresentMode{},
+    alpha_mode_count: usize = 0,
+    alpha_modes: [*]CompositeAlphaMode = &[_]CompositeAlphaMode{},
 
     pub inline fn FreeMembers(self: *SurfaceCapabilities) void {
         wgpuSurfaceCapabilitiesFreeMembers(self);
@@ -235,12 +236,12 @@ pub const SurfaceCapabilities = extern struct {
 };
 
 pub const GetCurrentTextureStatus = enum(u32) {
-    success       = 0x00000000,
-    timeout       = 0x00000001,
-    outdated      = 0x00000002,
-    lost          = 0x00000003,
+    success = 0x00000000,
+    timeout = 0x00000001,
+    outdated = 0x00000002,
+    lost = 0x00000003,
     out_of_memory = 0x00000004,
-    device_lost   = 0x00000005,
+    device_lost = 0x00000005,
 };
 
 pub const SurfaceTexture = extern struct {
@@ -250,14 +251,14 @@ pub const SurfaceTexture = extern struct {
 };
 
 pub const SurfaceProcs = struct {
-    pub const Configure = *const fn(*Surface, *const SurfaceConfiguration) callconv(.C) void;
-    pub const GetCapabilities = *const fn(*Surface, *Adapter, *SurfaceCapabilities) callconv(.C) void;
-    pub const GetCurrentTexture = *const fn(*Surface, *SurfaceTexture) callconv(.C) void;
-    pub const GetPreferredFormat = *const fn(*Surface, *Adapter) callconv(.C) TextureFormat;
-    pub const Present = *const fn(*Surface) callconv(.C) void;
-    pub const Unconfigure = *const fn(*Surface) callconv(.C) void;
-    pub const Reference = *const fn(*Surface) callconv(.C) void;
-    pub const Release = *const fn(*Surface) callconv(.C) void;
+    pub const Configure = *const fn (*Surface, *const SurfaceConfiguration) callconv(.C) void;
+    pub const GetCapabilities = *const fn (*Surface, *Adapter, *SurfaceCapabilities) callconv(.C) void;
+    pub const GetCurrentTexture = *const fn (*Surface, *SurfaceTexture) callconv(.C) void;
+    pub const GetPreferredFormat = *const fn (*Surface, *Adapter) callconv(.C) TextureFormat;
+    pub const Present = *const fn (*Surface) callconv(.C) void;
+    pub const Unconfigure = *const fn (*Surface) callconv(.C) void;
+    pub const Reference = *const fn (*Surface) callconv(.C) void;
+    pub const Release = *const fn (*Surface) callconv(.C) void;
 };
 
 extern fn wgpuSurfaceConfigure(surface: *Surface, config: *const SurfaceConfiguration) void;
