@@ -57,18 +57,18 @@ pub fn build(b: *std.Build) !void {
         // There's also some sorf of .pdb file available, which I think is a database of debugging symbols.
         // I don't even have a Windows machine though,
         // so I'll let somebody who does tell me what it is and if I need it.
-        .windows => "wgpu_native.lib",
+        .windows => "lib/wgpu_native.lib",
 
         // This only tries to account for linux/macos since we're using pre-compiled wgpu-native;
         // need to think harder about this if I get custom builds working.
-        else => "libwgpu_native.a",
+        else => "lib/libwgpu_native.a",
     }; // Also these don't even try to account for dynamic linking; that's a problem for future me.
     const libwgpu_path = wgpu_dep.path(lib_name);
     mod.addObjectFile(libwgpu_path);
 
     const translate_step = b.addTranslateC(.{
         // wgpu.h imports webgpu.h, so we get the contents of both files, as well as a bunch of libc garbage.
-        .root_source_file = wgpu_dep.path("wgpu.h"),
+        .root_source_file = wgpu_dep.path("include/wgpu/wgpu.h"),
 
         .target = target,
         .optimize = optimize,
